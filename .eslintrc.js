@@ -1,6 +1,8 @@
 module.exports = {
   env: {
     es6: true,
+    jest: true,
+    browser: true
   },
   extends: [
     'plugin:react/recommended',
@@ -11,6 +13,7 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    __DEV__: true
   },
   parserOptions: {
     ecmaFeatures: {
@@ -21,6 +24,9 @@ module.exports = {
   },
   plugins: [
     'react',
+    'import',
+    'react-hooks',
+    'prettier'
   ],
   rules: {
     'prettier/prettier': 'error',
