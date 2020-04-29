@@ -13,7 +13,7 @@ export const Container = styled.View`
 `;
 
 export const Left = styled.View`
-  display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
 `;
@@ -38,4 +38,6 @@ export const Time = styled.Text`
   color: #999;
   font-size: 13px;
   margin-top: 4px;
+  max-width: 100%;
+  margin-right: 60px;
 `;
