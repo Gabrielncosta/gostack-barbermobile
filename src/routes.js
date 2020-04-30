@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -8,11 +9,41 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import SignIn from './pages/SigIn';
 import SignUp from './pages/SignUp';
+
+import SelectProvider from './pages/New/SelectProvider';
+import SelectDateTime from './pages/New/SelectDateTime';
+import Confirm from './pages/New/Confirm';
+
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function New() {
+  return (
+    <AppStack.Navigator
+      screenOptions={{
+        headerTransparent: true,
+        headerTintColor: '#FFF',
+        headerLeftContainerStyle: {
+          marginLeft: 20,
+        },
+      }}
+    >
+      <AppStack.Screen
+        name="SelectProvider"
+        component={SelectProvider}
+        options={{
+          title: 'Selecione o prestador',
+          headerTitleAlign: 'center',
+        }}
+      />
+      <AppStack.Screen name="SelectDateTime" component={SelectDateTime} />
+      <AppStack.Screen name="Confirm" component={Confirm} />
+    </AppStack.Navigator>
+  );
+}
 
 function Home() {
   return (
@@ -33,6 +64,17 @@ function Home() {
         options={{
           tabBarLabel: 'Agendamentos',
           tabBarIcon: () => <Icon name="event" size={20} color="#fff" />,
+        }}
+      />
+      <Tab.Screen
+        name="New"
+        component={New}
+        options={{
+          tabBarVisible: false,
+          tabBarLabel: 'Agendar',
+          tabBarIcon: () => (
+            <Icon name="add-circle-outline" size={20} color="#fff" />
+          ),
         }}
       />
       <Tab.Screen
