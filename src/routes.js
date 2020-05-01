@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -39,7 +38,13 @@ function New() {
           headerTitleAlign: 'center',
         }}
       />
-      <AppStack.Screen name="SelectDateTime" component={SelectDateTime} />
+      <AppStack.Screen
+        name="SelectDateTime"
+        component={SelectDateTime}
+        options={{
+          title: 'Selecione o horário',
+        }}
+      />
       <AppStack.Screen name="Confirm" component={Confirm} />
     </AppStack.Navigator>
   );
