@@ -6,9 +6,11 @@ import pt from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import InputDate from '~/components/InputDate';
+
 import Background from '~/components/Background';
 
-import { Container, Title, DateButton, DateText } from './styles';
+import { Container, DateButton, DateText } from './styles';
 
 export default function SelectDateTime({ navigation }) {
   navigation.setOptions({
@@ -55,18 +57,7 @@ export default function SelectDateTime({ navigation }) {
           <DateText>{dateFormatted}</DateText>
         </DateButton>
 
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            value={date}
-            mode={mode}
-            minimumDate={new Date()}
-            is24Hour
-            display="default"
-            onChange={onChange}
-          />
-        )}
+        {show && <InputDate date={date} mode={mode} onChange={onChange} />}
       </Container>
     </Background>
   );
