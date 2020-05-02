@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { TouchableOpacity, Platform } from 'react-native';
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

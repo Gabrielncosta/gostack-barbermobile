@@ -22,7 +22,9 @@ const Tab = createBottomTabNavigator();
 function New() {
   return (
     <AppStack.Navigator
+      unmountOnBlur
       screenOptions={{
+        unmountOnBlur: true,
         headerTransparent: true,
         headerTintColor: '#FFF',
         headerLeftContainerStyle: {
@@ -45,7 +47,14 @@ function New() {
           title: 'Selecione o horário',
         }}
       />
-      <AppStack.Screen name="Confirm" component={Confirm} />
+      <AppStack.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{
+          title: 'Confirmar agendamento',
+          headerTitleAlign: 'center',
+        }}
+      />
     </AppStack.Navigator>
   );
 }
@@ -53,6 +62,7 @@ function New() {
 function Home() {
   return (
     <Tab.Navigator
+      unmountOnBlur
       tabBarOptions={{
         keyboardHidesTabBar: true,
         activeTintColor: '#FFF',
@@ -74,7 +84,9 @@ function Home() {
       <Tab.Screen
         name="New"
         component={New}
+        unmountOnBlur
         options={{
+          unmountOnBlur: true,
           tabBarVisible: false,
           tabBarLabel: 'Agendar',
           tabBarIcon: () => (
