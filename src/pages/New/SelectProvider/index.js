@@ -28,7 +28,6 @@ export default function SelectProvider({ navigation }) {
       const response = await api.get('providers');
 
       setProviders(response.data);
-      console.tron.log(response);
     }
 
     loadProviders();

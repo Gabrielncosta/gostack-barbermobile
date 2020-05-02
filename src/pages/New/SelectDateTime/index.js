@@ -1,18 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { TouchableOpacity, Platform } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import InputDate from '~/components/InputDate';
+import api from '~/services/api';
 
+import InputDate from '~/components/InputDate';
 import Background from '~/components/Background';
 
-import { Container, DateButton, DateText } from './styles';
+import { Container, HourList, Hour, Title } from './styles';
 
-export default function SelectDateTime({ navigation }) {
+export default function SelectDateTime({ route, navigation }) {
   navigation.setOptions({
     headerLeft: () => (
       <TouchableOpacity
@@ -26,38 +26,36 @@ export default function SelectDateTime({ navigation }) {
   });
 
   const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-  const [mode, setMode] = useState('date');
+  const [hours, setHours] = useState([]);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+  const { provider } = route.params;
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const dateFormatted = useMemo(
-    () => format(date, "dd 'de' MMMM 'de' yyyy", { locale: pt }),
-    [date]
-  );
+  useEffect(() => {
+    async function loadAvailable() {
+      const response = await api.get(`providers/${provider.id}/available`, {
+        params: {
+          date: date.getTime(),
+        },
+      });
+      setHours(response.data);
+    }
+    loadAvailable();
+  }, [date, provider.id]);
 
   return (
     <Background>
       <Container>
-        <DateButton onPress={showDatepicker}>
-          <Icon name="event" color="#FFF" size={20} />
-          <DateText>{dateFormatted}</DateText>
-        </DateButton>
-
-        {show && <InputDate date={date} mode={mode} onChange={onChange} />}
+        <InputDate date={date} setDate={setDate} />
+        <HourList
+          onPress={() => {}}
+          data={hours}
+          keyExtractor={(item) => item.time}
+          renderItem={({ item }) => (
+            <Hour onPress={() => {}} enabled={item.available}>
+              <Title>{item.time}</Title>
+            </Hour>
+          )}
+        />
       </Container>
     </Background>
   );
