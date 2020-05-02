@@ -42,6 +42,13 @@ export default function SelectDateTime({ route, navigation }) {
     loadAvailable();
   }, [date, provider.id]);
 
+  function handleSelectHour(time) {
+    navigation.navigate('Confirm', {
+      provider,
+      time,
+    });
+  }
+
   return (
     <Background>
       <Container>
@@ -51,7 +58,10 @@ export default function SelectDateTime({ route, navigation }) {
           data={hours}
           keyExtractor={(item) => item.time}
           renderItem={({ item }) => (
-            <Hour onPress={() => {}} enabled={item.available}>
+            <Hour
+              onPress={() => handleSelectHour(item.value)}
+              enabled={item.available}
+            >
               <Title>{item.time}</Title>
             </Hour>
           )}
